@@ -4,5 +4,6 @@
 ```js
 const name = "Lukas";
 alert(name);
-// Hlášení jména
+
+console.log(name);
 ```
