@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async</title>
+</head>
+<body>
+
+    <script>
+        const request = fetch("https://api.github.com")
+        request.then(
+            function(response){ 
+                const json = response.json()
+                json.then(
+                    data => console.log(data),
+                    error => console.error("Something went wrong with extracting JSON : " , error)
+                )
+            },
+            reject => console.error(reject)
+        ).catch(err => console.error("Someting went absolutely wrong. : " , err))
+
+        async function req(url , cb){ 
+            const response = await fetch(url)
+            .catch(err => {
+                throw new Error("Invalid URL")
+            })
+            .then(data => {
+                console.log("data : " , data)
+            })
+            const data = await response.json()
+            return cb(data)
+        }
+
+        try{
+            req("https://api.github.com/edf", result => console.log(result))
+            .catch(err => console.log(err , 'dsf'))
+        }catch(err){
+            console.log(err.message)
+        }
+
+        console.log("End of document")
+    </script>
+    
+</body>
+</html>

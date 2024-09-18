@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nothing</title>
+</head>
+<body>
+
+    <button id="my_btn">Calculate</button>
+
+    <div id="target"></div>
+
+    <script>
+        const btn = document.getElementById("my_btn")
+        const target = document.getElementById("target")
+
+        const promise = new Promise(function(res, rej){ 
+            if(target){ 
+                res(target)
+            }else{
+                rej(target)
+            }
+        })
+
+            setInterval(() => {
+                target.innerHTML += "#"
+            }, 1000);
+
+        btn.addEventListener("click" , () => promise.then(
+            success => console.log(success.innerHTML.length),
+            error => console.error("Problem with target: " , error)
+        ).catch(err => console.error("Error: " , err)))
+
+    </script>
+    
+</body>
+</html>
